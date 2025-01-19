@@ -14,5 +14,4 @@ Use plots to verify normality of shocks & log-normality of return
 
 Features to be added: 
 use statistics to estimate mu, sigma based on time, dt (expected mu/sigma through each dt) 
-create script to automate such that parameters work
-TRADE SIMULATOR: find P[asset finishes above price x], expected value of trade
+
