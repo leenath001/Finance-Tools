@@ -14,6 +14,7 @@ array gives a [paths x iter] matrix of shocks. For entry (path_i, iter_j), we ge
 array2 gives a [paths x iter] matrix of returns as of period iteration_i. For entry (path_i, iter_j), shocks are multiplied across such that our entry is a % return as of specified period.
 
 Use plots to verify normality of shocks & log-normality of return
+*  note: price distribution tend towards log-normality as time period gets larger (more time for returns to compound). 
 
 2 - TRADE SIMULATOR BASED OFF UNDERLYING
 
