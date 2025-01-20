@@ -27,5 +27,6 @@ GUIDE: set type to __ based on trade analysis wanted
 SET COUNT & SUM TO 0, strike2 > strike!!
 
 Features to be added: 
-*  use stats/historical data to estimate drift and vol (annualized)
-*  EV calculator (in progress)
+*  use estimators/historical data for drift and vol (annualized)
+*    vol: close to close, parkinson, garman-klaus, rogers-satchell, yang-zhang
+*   EV calculator (in progress)
