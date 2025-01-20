@@ -5,32 +5,24 @@ import math as m
 import random
 import seaborn
 
-# number formatting
-def format_number(num):
-    return f"{num:,.3f}" 
-def format_bank(num):
-    return f"{num:,.2f}" 
-
 # 1 - PATH SIMULATION OF UNDERLYING (NORMAL SHOCKS, LOGN PRICES)
 
-# goals - use statistics to estimate mu, sigma (annualized)
+# goals - integrate estimators for mu, sigma (annualized, see README)
 # IN PROGRESS
-# works better in years
 
-# estimation parameters
-iter = 1500
-days = 365
+# estimation parameters, SPY(u .106 v .181)
+iter = 3000
+days = 1
 time = days/365 
-S0 = 500
-paths = 30000
-mu = .05
-sig = .12
+S0 = 597.8
+paths = 50000
+mu = .106
+sig = .181
 dt = time/iter
 array = numpy.ones((paths, iter))
 array2 = numpy.ones((paths, iter))
 
 # iterates through array and changes each entry (by iteration then path)
-
 for rowind, row in enumerate(array):
     for colind, entry in enumerate(row[1:iter+1]):
         entry = 1 + (mu * dt + sig * m.sqrt(dt) * numpy.random.randn())
@@ -47,10 +39,11 @@ shocks = array[:,randint]
 # price range
 min = min(prices)
 max = max(prices)
-print('Minimum of', f"{min:.2f}",', Maximum of', f"{max:.2f}")
+evtot = (1/paths)*sum(prices)
+print('Minimum of', f"{min:.2f}",', Maximum of', f"{max:.2f}",", Mean is",f"{evtot:.2f}")
 
 
-# 2 - TRADE SIMULATOR BASED OFF UNDERLYING SIMULATION
+# 2 - TRADE SIMULATOR BASED OFF UNDERLYING DENSITY
 
 #   GUIDE: set type to __ based on trade analysis wanted
 #   1 - P[underlying >= strike]
@@ -59,8 +52,8 @@ print('Minimum of', f"{min:.2f}",', Maximum of', f"{max:.2f}")
 #   4 - P[strike >= underlying or underlying >= strike2]
 #   SET COUNT & SUM TO 0, strike2 > strike!!
 
-type = 3
-strike = 560
+type = 1
+strike = 800
 strike2 = 600
 count = 0
 sum = 0
@@ -118,6 +111,3 @@ if type == 3 or type == 4:
 else:
     plt.axvline(x = strike, color = 'red')
 plt.show()
-
-
-
