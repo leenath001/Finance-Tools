@@ -20,6 +20,7 @@ Use plots to verify normality of shocks & log-normality of return
 Using data from (1), code analyzes all outcomes to provide P[profit].
 
 GUIDE: set type to __ based on trade analysis wanted
+*  0 - OFF
 *  1 - P[underlying >= strike]
 *  2 - P[underlying <= strike]
 *  3 - P[strike <= underlying <= strike2]
