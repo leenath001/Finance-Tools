@@ -7,12 +7,12 @@ import seaborn
 
 # 1 - PATH SIMULATION OF UNDERLYING (NORMAL SHOCKS, LOGN PRICES)
 
-# goals - integrate estimators for mu, sigma (annualized, see README)
+# goals - use estimators for mu, sigma (annualized, see README)
 # IN PROGRESS
 
 # estimation parameters, SPY(u .106 v .181)
 iter = 3000
-days = 1
+days = 15
 time = days/365 
 S0 = 597.8
 paths = 50000
@@ -46,44 +46,55 @@ print('Minimum of', f"{min:.2f}",', Maximum of', f"{max:.2f}",", Mean is",f"{evt
 # 2 - TRADE SIMULATOR BASED OFF UNDERLYING DENSITY
 
 #   GUIDE: set type to __ based on trade analysis wanted
+#   0 - OFF
 #   1 - P[underlying >= strike]
 #   2 - P[underlying <= strike]
 #   3 - P[strike <= underlying <= strike2]
 #   4 - P[strike >= underlying or underlying >= strike2]
 #   SET COUNT & SUM TO 0, strike2 > strike!!
 
-type = 1
-strike = 800
-strike2 = 600
+type = 3
+strike = 600
+strike2 = 700
 count = 0
 sum = 0
 
-if type == 1:
+if type == 0:
+    pass
+elif type == 1:
     for p in prices:
         if p >= strike:
             count += 1
 #            sum += (p - strike)
+    prob = count/paths
+    ev = (1/paths) * sum
+    print(f"{prob:.2%}", "trade is ITM.") 
 elif type == 2:
     for p in prices:
         if p <= strike:
             count += 1
 #            sum += (strike - p)
+    prob = count/paths
+    ev = (1/paths) * sum
+    print(f"{prob:.2%}", "trade is ITM.") 
 elif type == 3:
     for p in prices:
         if p >= strike and p <= strike2:
             count += 1
 #            sum += p
+    prob = count/paths
+    ev = (1/paths) * sum
+    print(f"{prob:.2%}", "trade is ITM.") 
 elif type == 4:
     for p in prices:
         if p <= strike or p >= strike2:
             count += 1
 #            sum += abs(p - strike)
+    prob = count/paths
+    ev = (1/paths) * sum
+    print(f"{prob:.2%}", "trade is ITM.") 
 
-prob = count/paths
-ev = (1/paths) * sum
-print(f"{prob:.2%}", "trade is ITM.") 
 # "Expected value of", f"{ev:.2f}",'per contract.')
-
 
 # normality check
 plt.figure()
@@ -105,7 +116,9 @@ plt.xlim(min,max)
 plt.xlabel('Price')
 plt.ylabel('Density')
 plt.title('Log-Norm Dist of Prices')
-if type == 3 or type == 4:
+if type == 0:
+    pass
+elif type == 3 or type == 4:
     plt.axvline(x = strike, color = 'red')
     plt.axvline(x = strike2, color = 'red')
 else:
