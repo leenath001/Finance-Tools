@@ -11,10 +11,10 @@ import seaborn
 # IN PROGRESS
 
 # estimation parameters, SPY(u .106 v .181)
-iter = 3000
-days = 15
+iter = 300
+days = 23725
 time = days/365 
-S0 = 597.8
+S0 = 100
 paths = 50000
 mu = .106
 sig = .181
@@ -53,8 +53,8 @@ print('Minimum of', f"{min:.2f}",', Maximum of', f"{max:.2f}",", Mean is",f"{evt
 #   4 - P[strike >= underlying or underlying >= strike2]
 #   SET COUNT & SUM TO 0, strike2 > strike!!
 
-type = 3
-strike = 600
+type = 1
+strike = 100000
 strike2 = 700
 count = 0
 sum = 0
@@ -96,31 +96,38 @@ elif type == 4:
 
 # "Expected value of", f"{ev:.2f}",'per contract.')
 
-# normality check
-plt.figure()
-#plt.hist(shocks, bins = 40, density = True)
-plt.hist(shocks,bins = 60, density = True)
-seaborn.kdeplot(shocks)
-plt.xlabel('Shocks')
-plt.ylabel('Count')
-plt.title('Norm Dist of Shocks')
-plt.show()
+charts = 1
 
+if charts ==0:
+    pass
+elif charts ==1:
+# normality check
+    plt.figure()
+#plt.hist(shocks, bins = 40, density = True)
+    plt.hist(shocks,bins = 60, density = True)
+    seaborn.kdeplot(shocks)
+    plt.xlabel('Shocks')
+    plt.ylabel('Count')
+    plt.title('Norm Dist of Shocks')
+    plt.show()
 
 # log-normality check
-plt.figure()
-plt.hist(prices,bins = 60, density = True)
-seaborn.kdeplot(prices)
+    plt.figure()
+    plt.hist(prices,bins = 60, density = True)
+    seaborn.kdeplot(prices)
 #seaborn.distplot(prices)
-plt.xlim(min,max)
-plt.xlabel('Price')
-plt.ylabel('Density')
-plt.title('Log-Norm Dist of Prices')
-if type == 0:
-    pass
-elif type == 3 or type == 4:
-    plt.axvline(x = strike, color = 'red')
-    plt.axvline(x = strike2, color = 'red')
-else:
-    plt.axvline(x = strike, color = 'red')
-plt.show()
+    plt.axvline(x = S0, color = 'green')
+    plt.xlim(min,max)
+    plt.xlabel('Price')
+    plt.ylabel('Density')
+    plt.title('Log-Norm Dist of Prices')
+    if type == 0:
+        pass
+    elif type == 3 or type == 4:
+        plt.axvline(x = strike, color = 'red')
+        plt.axvline(x = strike2, color = 'red')
+    else:
+        plt.axvline(x = strike, color = 'red')
+    plt.show()
+
+
