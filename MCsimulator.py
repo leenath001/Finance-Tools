@@ -5,19 +5,34 @@ import math as m
 import random
 import seaborn
 
-# 1 - PATH SIMULATION OF UNDERLYING (NORMAL SHOCKS, LOGN PRICES)
-
-# goals - use estimators for mu, sigma (annualized, see README)
-# IN PROGRESS
-
-# estimation parameters, SPY(u .106 v .181)
-iter = 300
-days = 23725
-time = days/365 
+#########################
+iter = 500
+days = 700
 S0 = 100
 paths = 50000
 mu = .106
 sig = .181
+
+#   GUIDE: set type to __ based on trade analysis wanted (strike2 >> strike if type = 3 or 4!)
+#   0 - OFF
+#   1 - P[underlying >= strike]
+#   2 - P[underlying <= strike]
+#   3 - P[strike <= underlying <= strike2]
+#   4 - P[strike >= underlying or underlying >= strike2]
+
+type = 1
+charts = 1 # turns charts on/off (1 -> on)
+strike = 105
+strike2 = 700
+
+#########################
+
+# 1 - PATH SIMULATION OF UNDERLYING (NORMAL SHOCKS, LOGN PRICES)
+
+# goals - use estimators for mu, sigma (annualized, see README) IN PROGRESS
+
+# estimation parameters, SPY(u .106 v .181)
+time = days/365 
 dt = time/iter
 array = numpy.ones((paths, iter))
 array2 = numpy.ones((paths, iter))
@@ -42,20 +57,8 @@ max = max(prices)
 evtot = (1/paths)*sum(prices)
 print('Minimum of', f"{min:.2f}",', Maximum of', f"{max:.2f}",", Mean is",f"{evtot:.2f}")
 
-
 # 2 - TRADE SIMULATOR BASED OFF UNDERLYING DENSITY
 
-#   GUIDE: set type to __ based on trade analysis wanted
-#   0 - OFF
-#   1 - P[underlying >= strike]
-#   2 - P[underlying <= strike]
-#   3 - P[strike <= underlying <= strike2]
-#   4 - P[strike >= underlying or underlying >= strike2]
-#   SET COUNT & SUM TO 0, strike2 > strike!!
-
-type = 1
-strike = 100000
-strike2 = 700
 count = 0
 sum = 0
 
@@ -96,11 +99,9 @@ elif type == 4:
 
 # "Expected value of", f"{ev:.2f}",'per contract.')
 
-charts = 1
-
-if charts ==0:
+if charts == 0:
     pass
-elif charts ==1:
+elif charts == 1:
 # normality check
     plt.figure()
 #plt.hist(shocks, bins = 40, density = True)
@@ -130,4 +131,14 @@ elif charts ==1:
         plt.axvline(x = strike, color = 'red')
     plt.show()
 
+# choose 100 random price vectors, plot each thru time
+    randvec = numpy.random.randint(0,paths,100)
+    xvec = numpy.arange(iter)
 
+    plt.figure()
+    for int in randvec:
+        p = S0 * array2[int,:]
+        plt.plot(xvec,p)
+    plt.xlabel('Time (dt)')
+    plt.ylabel('Price')
+    plt.show()
