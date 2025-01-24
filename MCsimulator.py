@@ -4,14 +4,19 @@ import matplotlib.pyplot as plt
 import math as m
 import random
 import seaborn
+import Param_Est
 
 #########################
 iter = 500
 days = 700
 S0 = 100
 paths = 50000
-mu = .106
-sig = .181
+
+# input data into sheet, use function to estimate parameters
+params = Param_Est.Param_Est("MASdat.xlsx")
+
+mu = params[0]
+sig = params[1]
 
 #   GUIDE: set type to __ based on trade analysis wanted (strike2 >> strike if type = 3 or 4!)
 #   0 - OFF
@@ -22,14 +27,12 @@ sig = .181
 
 type = 1
 charts = 1 # turns charts on/off (1 -> on)
-strike = 105
+strike = 130
 strike2 = 700
 
 #########################
 
 # 1 - PATH SIMULATION OF UNDERLYING (NORMAL SHOCKS, LOGN PRICES)
-
-# goals - use estimators for mu, sigma (annualized, see README) IN PROGRESS
 
 # estimation parameters, SPY(u .106 v .181)
 time = days/365 
