@@ -1,3 +1,9 @@
+MASdat.xlsx
+Use https://www.nasdaq.com/market-activity/quotes/historical to load 1y historical stock data. Copy close, high, low columns and paste into corresponding MASdat.xlsx file
+
+Param_Est
+function takes MASdat.xlsx as input and estimates parameters. IN PROGRESS
+
 1 - PATH SIMULATION OF UNDERLYING
 
 Takes parameters drift, volatility, time, starting price, and no. of paths to simulate stock movement with Geometric Brownian Motion (GBM) assumption
@@ -29,6 +35,4 @@ GUIDE: set type to __ based on trade analysis wanted
 SET COUNT & SUM TO 0, strike2 > strike!!
 
 Features to be added: 
-*  use estimators/historical data for drift and vol (annualized)
-*    vol: close to close, parkinson, garman-klaus, rogers-satchell, yang-zhang
 *   EV calculator (in progress)
