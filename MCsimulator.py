@@ -8,8 +8,8 @@ import Param_Est
 
 #########################
 iter = 500
-days = 700
-S0 = 100
+days = 5
+S0 = 130
 paths = 50000
 
 # input data into sheet, use function to estimate parameters
@@ -17,6 +17,9 @@ params = Param_Est.Param_Est("MASdat.xlsx")
 
 mu = params[0]
 sig = params[1]
+print('mu =', f"{mu:.2%}")
+print('vol =', f"{sig:.2%}")
+print()
 
 #   GUIDE: set type to __ based on trade analysis wanted (strike2 >> strike if type = 3 or 4!)
 #   0 - OFF
@@ -27,7 +30,7 @@ sig = params[1]
 
 type = 1
 charts = 1 # turns charts on/off (1 -> on)
-strike = 130
+strike = 147
 strike2 = 700
 
 #########################
@@ -35,7 +38,7 @@ strike2 = 700
 # 1 - PATH SIMULATION OF UNDERLYING (NORMAL SHOCKS, LOGN PRICES)
 
 # estimation parameters, SPY(u .106 v .181)
-time = days/365 
+time = days/252
 dt = time/iter
 array = numpy.ones((paths, iter))
 array2 = numpy.ones((paths, iter))
@@ -134,8 +137,8 @@ elif charts == 1:
         plt.axvline(x = strike, color = 'red')
     plt.show()
 
-# choose 100 random price vectors, plot each thru time
-    randvec = numpy.random.randint(0,paths,100)
+# choose 150 random price vectors, plot each thru time
+    randvec = numpy.random.randint(0,paths,150)
     xvec = numpy.arange(iter)
 
     plt.figure()
