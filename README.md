@@ -1,8 +1,4 @@
-MASdat.xlsx
-*  Use https://www.nasdaq.com/market-activity/quotes/historical to load 1y historical stock data. Copy close, high, low columns and paste into corresponding MASdat.xlsx columns
-
-Param_Est
-*  function takes MASdat.xlsx as input and estimates parameters drift and vol (annualized). IN PROGRESS
+See Portfolio-Analysis for updated work. 
 
 1 - PATH SIMULATION OF UNDERLYING
 
